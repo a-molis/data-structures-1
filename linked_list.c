@@ -34,6 +34,33 @@ int insert(struct list_node **head, int data)
     return 0;
 }
 
+int car(struct list_node *head)
+{
+	if (head == NULL) {
+		return -1;
+	}
+	return head->data;
+}
+
+struct list_node *cdr(struct list_node *head)
+{
+	if (head == NULL || head->next == NULL) {
+		return NULL;
+	} else {
+		return head->next;
+	}
+}
+
+int foldl(int ( *f ) ( void ), struct list_node *head) 
+{
+    return 0;
+}
+
+int add(int a, int b)
+{
+	return a + b;
+}
+
 void print(struct list_node *head)
 {
     struct list_node *current = head;
