@@ -51,9 +51,13 @@ struct list_node *cdr(struct list_node *head)
 	}
 }
 
-int foldl(int ( *f ) ( void ), struct list_node *head) 
+int foldl(int ( *f ) ( void ), int base, struct list_node *head) 
 {
-    return 0;
+    if (head == NULL) {
+    	return base;
+    }
+    int new_base = f(base, car(head));
+    foldl(f, base, cdr(head));
 }
 
 int add(int a, int b)
