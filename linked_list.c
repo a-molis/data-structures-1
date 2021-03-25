@@ -51,13 +51,13 @@ struct list_node *cdr(struct list_node *head)
 	}
 }
 
-int foldl(int ( *f ) ( void ), int base, struct list_node *head) 
+int foldl(int ( *f ) ( int, int), int base, struct list_node *head) 
 {
     if (head == NULL) {
     	return base;
     }
     int new_base = f(base, car(head));
-    foldl(f, base, cdr(head));
+    return foldl(f, new_base, cdr(head));
 }
 
 int add(int a, int b)
@@ -240,6 +240,8 @@ int main(int argc, char *argv[])
     print(head);
     delete(&head, 568);
     delete(&head, 99999999);
+    int res = foldl(add, 0, head);
+    printf("%d\n", res);
 
     print(head);
 
