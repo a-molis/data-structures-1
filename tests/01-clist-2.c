@@ -38,7 +38,6 @@ subtest("Simple test for clist_iterate and clist_iterate_rev",
     for (int i = 14; i >= 10; i--) {
         elem = clist_iterate(test_list, &iter1);
         int iterate_output = *((int *) elem);
-        printf("list in rev order -> %d \n", iterate_output);
         test_assert(iterate_output == i);
     }
 
