@@ -22,4 +22,4 @@ linked_list.o: linked_list.c linked_list.h
 ds.o: ds.c clist.h linked_list.h
 
 clean:
-	rm -f $(bin) $(obj) libds.o vgcore.*
+	rm -f $(bin) $(obj) libds.o vgcore.* libds.so
