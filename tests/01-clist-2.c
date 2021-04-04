@@ -38,6 +38,7 @@ subtest("Simple test for clist_iterate and clist_iterate_rev",
     for (int i = 14; i >= 10; i--) {
         elem = clist_iterate(test_list, &iter1);
         int iterate_output = *((int *) elem);
+        printf("list in rev order -> %d \n", iterate_output);
         test_assert(iterate_output == i);
     }
 
@@ -75,6 +76,40 @@ subtest("Test 2 for clist_iterate and clist_iterate_rev",
     test_assert(elem == NULL);
 });
 
+subtest("Test for segfault for clist_iterate and clist_iterate_rev",
+{
+    int capacity = 5;;
+    struct clist *test_list = clist_create(capacity, sizeof(int));
+    for(int i = 0; i < 15; i++) {
+        clist_add(test_list, &i);
+    }
+
+    struct clist_iterator iter1 = clist_create_iter();
+    void *elem;
+    for (int i = 14; i >= 10; i--) {
+        elem = clist_iterate(test_list, &iter1);
+        int iterate_output = *((int *) elem);
+        test_assert(iterate_output == i);
+    }
+
+    printf("start -> %i\n", iter1.start);
+    printf("iter idx-> %lu\n", iter1.idx);
+    elem = clist_iterate(test_list, &iter1);
+    test_assert(elem == NULL);
+    //test_assert(0 == 1);
+    printf("start -> %i\n", iter1.start);
+    printf("iter idx-> %lu\n", iter1.idx);
+
+    elem = clist_iterate(test_list, &iter1);
+    test_assert(elem == NULL);
+    printf("start -> %i\n", iter1.start);
+    printf("iter idx-> %lu\n", iter1.idx);
+
+   
+    //elem = clist_iterate_rev(test_list, &iter1);
+    //int iterate_output = *((int *) elem);
+    //*/
+});
 
 
 test_end
