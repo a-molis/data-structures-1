@@ -9,13 +9,21 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-//#include "clist.h"
+#include "clist.h"
 
 test_start("Basic test");
 
-subtest("test clist",
+subtest("Simple test clist_add and clist_get",
 {
-    test_assert(9 == 9);
+    struct clist *test_list = clist_create(5, sizeof(int));
+    int x;
+
+    x = 0; clist_add(test_list, &x);
+    x = 1; clist_add(test_list, &x);
+    x = 7; clist_add(test_list, &x);
+    int *output= clist_get(test_list, 2);
+    test_assert(*output == 7);
+    clist_destroy(test_list);
 });
 
 test_end
