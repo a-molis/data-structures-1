@@ -23,3 +23,6 @@ ds.o: ds.c clist.h linked_list.h
 
 clean:
 	rm -f $(bin) $(obj) libds.o vgcore.* libds.so
+
+test: $(bin) libds.so ./tests/run_tests
+	@DEBUG="$(debug)" ./tests/run_tests $(run)
