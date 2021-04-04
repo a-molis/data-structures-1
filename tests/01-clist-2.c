@@ -39,7 +39,6 @@ subtest("Simple test for clist_iterate and clist_iterate_rev",
         elem = clist_iterate(test_list, &iter1);
         int iterate_output = *((int *) elem);
         test_assert(iterate_output == i);
-        printf("i-> %d, output->%d\n", i, iterate_output);
     }
 
     struct clist_iterator iter2 = clist_create_iter();
@@ -64,17 +63,16 @@ subtest("Test 2 for clist_iterate and clist_iterate_rev",
         elem = clist_iterate(test_list, &iter1);
         int iterate_output = *((int *) elem);
         test_assert(iterate_output == i);
-        printf("i-> %d, output->%d\n", i, iterate_output);
     }
 
-    //elem = clist_iterate_rev(test_list, &iter1);
-    //int out = *((int *) elem);
     for(int i=13; i<15; i++) {
         elem = clist_iterate_rev(test_list, &iter1);
         int iterate_output = *((int *) elem);
         test_assert(iterate_output == i);
-        printf("i-> %d\n", i);
     }
+
+    elem = clist_iterate_rev(test_list, &iter1);
+    test_assert(elem == NULL);
 });
 
 
