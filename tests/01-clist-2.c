@@ -50,5 +50,33 @@ subtest("Simple test for clist_iterate and clist_iterate_rev",
     }
 });
 
+subtest("Test 2 for clist_iterate and clist_iterate_rev",
+{
+    int capacity = 5;;
+    struct clist *test_list = clist_create(capacity, sizeof(int));
+    for(int i = 0; i < 15; i++) {
+        clist_add(test_list, &i);
+    }
+
+    struct clist_iterator iter1 = clist_create_iter();
+    void *elem;
+    for (int i = 14; i >= 12; i--) {
+        elem = clist_iterate(test_list, &iter1);
+        int iterate_output = *((int *) elem);
+        test_assert(iterate_output == i);
+        printf("i-> %d, output->%d\n", i, iterate_output);
+    }
+
+    //elem = clist_iterate_rev(test_list, &iter1);
+    //int out = *((int *) elem);
+    for(int i=13; i<15; i++) {
+        elem = clist_iterate_rev(test_list, &iter1);
+        int iterate_output = *((int *) elem);
+        test_assert(iterate_output == i);
+        printf("i-> %d\n", i);
+    }
+});
+
+
 
 test_end
