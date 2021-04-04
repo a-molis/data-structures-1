@@ -158,7 +158,7 @@ int delete_at(struct list_node **head, int index){
 	return 0;
 }
 
-int delete(struct list_node **head, int data) {
+int delete_data(struct list_node **head, int data) {
     struct list_node *current = *head;
     
     if (current == NULL) {
