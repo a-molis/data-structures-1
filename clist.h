@@ -4,7 +4,10 @@
 #include <sys/types.h>
 
 struct clist;
-struct clist_iterator;
+struct clist_iterator {
+    unsigned int initialized : 1;
+    size_t idx;
+};
 
 /**
  * Creates a new circular list with the given capacity and item size.

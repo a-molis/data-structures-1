@@ -12,11 +12,6 @@ struct clist {
     void *element_storage;
 };
 
-struct clist_iterator {
-    unsigned int initialized : 1;
-    size_t idx;
-};
-
 struct clist *clist_create(size_t capacity, size_t item_sz)
 {
     struct clist *list =  malloc(sizeof(struct clist));

@@ -44,5 +44,43 @@ int main()
 	free_list(head);
 
 
+    // example usage for clist
+    struct clist *list = clist_create(5, sizeof(int));
+
+    int x;
+    x = 0;
+    clist_add(list, &x);
+
+    x = 1; clist_add(list, &x);
+    x = 2; clist_add(list, &x);
+    x = 3; clist_add(list, &x);
+    x = 4; clist_add(list, &x);
+    x = 5; clist_add(list, &x);
+    x = 6; clist_add(list, &x);
+
+    int *y = clist_get(list, 2);
+    if (y == NULL) {
+        clist_destroy(list);
+        return 1;
+    }
+    printf("y = %d\n\n", *y);
+
+    void *elem;
+    struct clist_iterator iter = clist_create_iter();
+    while ((elem = clist_iterate(list, &iter)) != NULL) {
+        int ie = *((int *) elem);
+        printf("-> %d\n", ie);
+    }
+
+    puts("\n\n");
+
+    struct clist_iterator iter2 = clist_create_iter();
+    while ((elem = clist_iterate_rev(list, &iter2)) != NULL) {
+        int ie = *((int *) elem);
+        printf("-> %d\n", ie);
+    }
+
+    clist_destroy(list);
+
     return 0;
 }
