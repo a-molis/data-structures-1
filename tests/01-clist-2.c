@@ -86,30 +86,35 @@ subtest("Test for segfault for clist_iterate and clist_iterate_rev",
 
     struct clist_iterator iter1 = clist_create_iter();
     void *elem;
+    int current;
     for (int i = 14; i >= 10; i--) {
-        elem = clist_iterate(test_list, &iter1);
-        int iterate_output = *((int *) elem);
-        test_assert(iterate_output == i);
+        elem = clist_next(test_list, &iter1);
+        current = *((int *) elem);
+        test_assert(current == i);
     }
 
-    printf("start -> %i\n", iter1.start);
-    printf("iter idx-> %lu\n", iter1.idx);
-    elem = clist_iterate(test_list, &iter1);
+    elem = clist_next(test_list, &iter1);
     test_assert(elem == NULL);
-    //test_assert(0 == 1);
-    printf("start -> %i\n", iter1.start);
-    printf("iter idx-> %lu\n", iter1.idx);
 
-    elem = clist_iterate(test_list, &iter1);
+    for (int i = 11; i < 15; i++) {
+        elem = clist_prev(test_list, &iter1);
+        current = *((int *) elem);
+        test_assert(current == i);
+    }
+    elem = clist_prev(test_list, &iter1);
     test_assert(elem == NULL);
-    printf("start -> %i\n", iter1.start);
-    printf("iter idx-> %lu\n", iter1.idx);
-
-   
-    //elem = clist_iterate_rev(test_list, &iter1);
-    //int iterate_output = *((int *) elem);
-    //*/
-});
+    
+    clist_next(test_list, &iter1);
+    clist_next(test_list, &iter1);
+    elem = clist_next(test_list, &iter1);
+    current = *((int *) elem);
+    test_assert(current == 12);
+    
+    elem = clist_prev(test_list, &iter1);
+    current = *((int *) elem);
+    test_assert(current == 13);
+    
+ });
 
 
 test_end

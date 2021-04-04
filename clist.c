@@ -76,7 +76,8 @@ void *clist_add_new(struct clist *list)
 }
 
 void *clist_get(struct clist *list, size_t idx) {
-    if (list == NULL || idx >= list->insertions || ((list->insertions > list->capacity) && (idx < list->insertions - list->capacity)))
+    if (list == NULL || idx >= list->insertions || 
+            ((list->insertions > list->capacity) && (idx < list->insertions - list->capacity)))
     {
         return NULL;
     } 
@@ -86,6 +87,25 @@ void *clist_get(struct clist *list, size_t idx) {
     // first we goes from element storage
     // increment on element storage
     return list->element_storage + real_idx * list->item_sz;
+}
+
+void *clist_next(struct clist *list, struct clist_iterator *iter) {
+    if (iter->idx >= list->capacity) {
+        return NULL;
+    } else {
+        return clist_get(list, (list->insertions - iter->idx++ - 1));
+    }
+}
+
+void *clist_prev(struct clist *list, struct clist_iterator *iter) {
+    iter->idx--;
+    iter->idx--;
+    if (iter->idx < 0) {
+        iter->idx = 0;
+        return NULL;
+    } else {
+        return clist_get(list, (list->insertions - iter->idx++ - 1));
+    }
 }
 
 void *clist_iterate(struct clist *list, struct clist_iterator *iter) {

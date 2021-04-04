@@ -44,6 +44,9 @@ void *clist_add_new(struct clist *list);
  */
 void *clist_get(struct clist *list, size_t idx);
 
+void *clist_next(struct clist *list, struct clist_iterator *iter);
+void *clist_prev(struct clist *list, struct clist_iterator *iter);
+
 /**
  * Iterates through the provided list, starting with the most recent insertion
  * and working backward until the end of the list is reached. Each invocation of
