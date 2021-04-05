@@ -89,22 +89,27 @@ void *clist_get(struct clist *list, size_t idx) {
     return list->element_storage + real_idx * list->item_sz;
 }
 
-void *clist_next(struct clist *list, struct clist_iterator *iter) {
+void *clist_next(struct clist *list, struct clist_iterator *iter) { 
     if (iter->idx >= list->capacity) {
         return NULL;
     } else {
-        return clist_get(list, (list->insertions - iter->idx++ - 1));
+        void *result = clist_get(list, (list->insertions - iter->idx - 1));
+        if (result != NULL) {
+            iter->idx++;
+        }
+        return result;
     }
 }
 
 void *clist_prev(struct clist *list, struct clist_iterator *iter) {
     iter->idx--;
-    iter->idx--;
+    printf("index insde of prev after decrement->%lu\n", iter->idx);
     if (iter->idx < 0) {
         iter->idx = 0;
         return NULL;
     } else {
-        return clist_get(list, (list->insertions - iter->idx++ - 1));
+       void *result = clist_get(list, (list->insertions - iter->idx++ - 1));
+       return result;
     }
 }
 
