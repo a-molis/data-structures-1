@@ -59,7 +59,7 @@ ssize_t clist_add(struct clist *list, void *item) {
         return -1;
     }
     size_t idx = list->insertions % list->capacity;
-    void *ptr = list->element_storage + idx * list->item_sz;
+    void *ptr = (char *) list->element_storage + idx * list->item_sz;
     memcpy(ptr, item, list->item_sz);
     return list->insertions++;
 }
@@ -70,7 +70,7 @@ void *clist_add_new(struct clist *list)
         return NULL;
     }
     int idx = list->insertions % list->capacity;
-    void *ptr = list->element_storage + idx * list->item_sz;
+    void *ptr = (char *) list->element_storage + idx * list->item_sz;
     list->insertions++;
     return ptr;
 }
@@ -86,7 +86,7 @@ void *clist_get(struct clist *list, size_t idx) {
 
     // first we goes from element storage
     // increment on element storage
-    return list->element_storage + real_idx * list->item_sz;
+    return (char *) list->element_storage + real_idx * list->item_sz;
 }
 
 void *clist_next(struct clist *list, struct clist_iterator *iter) { 
@@ -94,7 +94,7 @@ void *clist_next(struct clist *list, struct clist_iterator *iter) {
         return NULL;
     } else {
         void *result = clist_get(list, (list->insertions - iter->idx - 1));
-        if (result != NULL) {
+        if (result != NULL && iter->idx + 1 != list->insertions) {
             iter->idx++;
         }
         return result;
@@ -103,8 +103,9 @@ void *clist_next(struct clist *list, struct clist_iterator *iter) {
 
 void *clist_prev(struct clist *list, struct clist_iterator *iter) {
     iter->idx--;
-    printf("index insde of prev after decrement->%lu\n", iter->idx);
-    if (iter->idx < 0) {
+    iter->idx--;
+
+    if (iter->idx > list->capacity) {
         iter->idx = 0;
         return NULL;
     } else {

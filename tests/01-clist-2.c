@@ -92,38 +92,14 @@ subtest("Test for segfault for clist_iterate and clist_iterate_rev",
         test_assert(current == i);
     }
 
-    elem = clist_prev(test_list, &iter1);
-    test_assert(elem != NULL);
-
     for (int i = 11; i < 15; i++) {
         elem = clist_prev(test_list, &iter1);
         current = *((int *) elem);
-        printf("element -> %i\n", current);
         test_assert(current == i);
     }
-//    elem = clist_prev(test_list, &iter1);
-//    
-//    clist_next(test_list, &iter1);
-//    clist_next(test_list, &iter1);
-//    elem = clist_next(test_list, &iter1);
-//    current = *((int *) elem);
-//    printf("%i\n", current);
-//    test_assert(current == 12);
-//    
-//    elem = clist_prev(test_list, &iter1);
-//    current = *((int *) elem);
-//    test_assert(current == 13);
-//
-//    elem = clist_prev(test_list, &iter1);
-//    current = *((int *) elem);
-//    printf("last elem -> %i\n", current);
-//    test_assert(current == 14);
-//    printf("idx at the end of the list %lu\n", iter1.idx);
-//    elem = clist_prev(test_list, &iter1);
-//    printf("idx at the end of the list %lu\n", iter1.idx);
-//    //test_assert(4 == 3);
 
-    
+    elem = clist_prev(test_list, &iter1);
+    test_assert(elem == NULL);
  });
 
 
